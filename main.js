@@ -264,10 +264,9 @@ PercentageMod.launch = function () {
 			var cpsStr = Beautify(perc, 1);
 			var synergyStr = Beautify(percSynergy, 1);
 
-			percDiv.innerHTML = '<b>' +
-				cpsStr + '% ' + (perc > 0 ? '<span style="font-size: smaller">' +
-					(PercentageMod.config.show_synergy ? '(+' + synergyStr + '%)' : '') +
-					'</span></b>' : '');
+			percDiv.innerHTML = '<b><span style="color:' + getColor(perc) + ';">' + cpsStr + '%</span> ' +
+				((perc > 0 && PercentageMod.config.show_synergy) ? '<span style="font-size: smaller;color:' +
+				getColor(percSynergy) + ';">' + '(+' + synergyStr + '%)' + '</span>' : '') + '</b>';
 			graphDiv.innerHTML = PercentageMod.config.show_graph ? PercentageMod.graphByPerc(perc) : '';
 		});
 	}
@@ -352,4 +351,13 @@ if (!PercentageMod.isLoaded) {
 		if (!CCSE.postLoadHooks) CCSE.postLoadHooks = [];
 		CCSE.postLoadHooks.push(PercentageMod.launch);
 	}
+}
+
+function getColor(percentage) {
+	if (percentage > 30) {
+		return 'lime';
+	} else if (percentage > 5) {
+		return 'orange';
+	} 
+	return 'red';
 }
