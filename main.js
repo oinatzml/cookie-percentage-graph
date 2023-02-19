@@ -9,6 +9,7 @@ PercentageMod.launch = function () {
 	PercentageMod.defaultConfig = function () {
 		return {
 			show_synergy: 1,
+			show_graph: 1,
 			swap_order: 0,
 			position: 'top-right',
 			positionBtns: {
@@ -81,17 +82,20 @@ PercentageMod.launch = function () {
 				'</div>';
 
 			str += '<br/>';
+			str += m.Header('Graph');
+			str += '' +
+				'<div class="listing">' +
+				m.ToggleButton(PercentageMod.config, 'show_graph', 'PercentageMod_Graph', 'Show Graph ON', 'Show Graph OFF', "PercentageMod.Toggle") +
+				'</div>' +
+				'<div class="listing">' +
+				m.ToggleButton(PercentageMod.config, 'swap_order', 'PercentageMod_SwapOrder', 'Swap Graph Order ON', 'Swap Graph Order OFF', "PercentageMod.Toggle") +
+				'</div>';
+
+			str += '<br/>';
 			str += m.Header('Synergy');
 			str += '' +
 				'<div class="listing">' +
 				m.ToggleButton(PercentageMod.config, 'show_synergy', 'PercentageMod_Synergy', 'Show Synergy ON', 'Show Synergy OFF', "PercentageMod.Toggle") +
-				'</div>';
-
-			str += '<br/>';
-			str += m.Header('Order');
-			str += '' +
-				'<div class="listing">' +
-				m.ToggleButton(PercentageMod.config, 'swap_order', 'PercentageMod_SwapOrder', 'Swap Graph Order ON', 'Swap Graph Order OFF', "PercentageMod.Toggle") +
 				'</div>';
 
 			str += '<br/>';
@@ -264,7 +268,7 @@ PercentageMod.launch = function () {
 				cpsStr + '% ' + (perc > 0 ? '<span style="font-size: smaller">' +
 					(PercentageMod.config.show_synergy ? '(+' + synergyStr + '%)' : '') +
 					'</span></b>' : '');
-			graphDiv.innerHTML = PercentageMod.graphByPerc(perc);
+			graphDiv.innerHTML = PercentageMod.config.show_graph ? PercentageMod.graphByPerc(perc) : '';
 		});
 	}
 
